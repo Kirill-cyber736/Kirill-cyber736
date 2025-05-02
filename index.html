@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Custom Dropdown</title>
+    <!-- Style in other file style.css, just import this file in html -->
     <style>
         .custom-dropdown {
             position: relative;
@@ -11,7 +13,7 @@
             width: 200px;
             font-family: Arial, sans-serif;
         }
-        
+
         .dropdown-toggle {
             padding: 10px 15px;
             background-color: #f8f8f8;
@@ -22,11 +24,11 @@
             justify-content: space-between;
             align-items: center;
         }
-        
+
         .dropdown-toggle:hover {
             background-color: #e8e8e8;
         }
-        
+
         .dropdown-arrow {
             width: 0;
             height: 0;
@@ -35,11 +37,11 @@
             border-top: 5px solid #333;
             transition: transform 0.3s;
         }
-        
+
         .dropdown-arrow.open {
             transform: rotate(180deg);
         }
-        
+
         .dropdown-menu {
             position: absolute;
             top: 100%;
@@ -49,32 +51,33 @@
             border: 1px solid #ddd;
             border-top: none;
             border-radius: 0 0 4px 4px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             max-height: 200px;
             overflow-y: auto;
             display: none;
             z-index: 1000;
         }
-        
+
         .dropdown-menu.open {
             display: block;
         }
-        
+
         .dropdown-item {
             padding: 10px 15px;
             cursor: pointer;
         }
-        
+
         .dropdown-item:hover {
             background-color: #f0f0f0;
         }
-        
+
         .dropdown-item.selected {
             background-color: #e0e0e0;
             font-weight: bold;
         }
     </style>
 </head>
+
 <body>
     <div class="custom-dropdown">
         <div class="dropdown-toggle" id="dropdownToggle">
@@ -82,6 +85,7 @@
             <span class="dropdown-arrow"></span>
         </div>
         <div class="dropdown-menu" id="dropdownMenu">
+            <!-- Create options in html - bad idea. What be, if options be a 1000000? Create 100000 div in html? Your customer want give you list with options data. THink about where you can keep this list and how use it that create options -->
             <div class="dropdown-item" data-value="option1">Вариант 1</div>
             <div class="dropdown-item" data-value="option2">Вариант 2</div>
             <div class="dropdown-item" data-value="option3">Вариант 3</div>
@@ -90,45 +94,44 @@
         </div>
     </div>
 
+    <!-- script in other file index.js, import this module in html -->
     <script>
+        // Why so many elements? Enough three elements.
         const dropdownToggle = document.getElementById('dropdownToggle');
         const dropdownMenu = document.getElementById('dropdownMenu');
         const dropdownArrow = document.querySelector('.dropdown-arrow');
         const selectedValue = document.getElementById('selectedValue');
         const dropdownItems = document.querySelectorAll('.dropdown-item');
-        
+
+        //Why this variable? It doesn't do anything
         let isOpen = false;
-        
-        // Переключение видимости меню
+
+
         dropdownToggle.addEventListener('click', () => {
             isOpen = !isOpen;
+            //Create toggle just one classname, think which element toggle classname/
             dropdownMenu.classList.toggle('open', isOpen);
             dropdownArrow.classList.toggle('open', isOpen);
         });
-        
-        // Выбор элемента из списка
+
+        //Bad solution add listener to every option. In programm important create as little listeners as possible, because its used many memory.
         dropdownItems.forEach(item => {
             item.addEventListener('click', () => {
-                // Удаляем класс selected у всех элементов
+                // hang "selected" class in one array method, think how.
                 dropdownItems.forEach(i => i.classList.remove('selected'));
-                
-                // Добавляем класс selected к выбранному элементу
+
                 item.classList.add('selected');
-                
-                // Обновляем отображаемое значение
+
                 selectedValue.textContent = item.textContent;
-                
-                // Закрываем меню
+
                 isOpen = false;
                 dropdownMenu.classList.remove('open');
                 dropdownArrow.classList.remove('open');
-                
-                // Здесь можно добавить обработку выбранного значения
+
                 console.log('Выбрано:', item.getAttribute('data-value'));
             });
         });
-        
-        // Закрытие меню при клике вне его
+
         document.addEventListener('click', (event) => {
             if (!dropdownToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
                 isOpen = false;
@@ -136,6 +139,9 @@
                 dropdownArrow.classList.remove('open');
             }
         });
+
+    //TODO Search event listeners and event object. Learn what surfacing in JS. Block all surfacing in your project.
     </script>
 </body>
+
 </html>
