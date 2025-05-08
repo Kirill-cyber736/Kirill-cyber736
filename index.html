@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Dropdown</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="custom-dropdown">
+        <div class="dropdown-toggle" id="dropdownToggle">
+            <span id="selectedValue">Выберите вариант</span>
+            <span class="dropdown-arrow"></span>
+        </div>
+        <div class="dropdown-menu" id="dropdownMenu">
+            <!-- Create options in html - bad idea. What be, if options be a 1000000? Create 100000 div in html? Your customer want give you list with options data. THink about where you can keep this list and how use it that create options -->
+            <div class="dropdown-item" data-value="option1">Вариант 1</div>
+            <div class="dropdown-item" data-value="option2">Вариант 2</div>
+            <div class="dropdown-item" data-value="option3">Вариант 3</div>
+            <div class="dropdown-item" data-value="option4">Вариант 4</div>
+            <div class="dropdown-item" data-value="option5">Вариант 5</div>
+        </div>
+    </div>
+    <script src="index.js"></script>
+</body>
+
+</html>
